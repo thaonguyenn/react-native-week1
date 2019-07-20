@@ -1,0 +1,48 @@
+<html>
+    <body>
+        <div id="message">
+            <p id="mess">Guess number now !</p>
+            <input type="number" id="number" />
+            <button id="guessButton" onclick="guessNumber();">Guess</button>
+            <button id="restartButton" onclick="restart();" hidden="true">Play again</button>
+            <p id="pastGuesses"></p>
+        </div>
+    </body>
+    <script>
+        var max = 10;
+        var min = 0;
+        var targetNumner = Math.ceil(Math.random() * (max - min)) + min;
+        var pastGuesses = "";
+        var counter = 10;
+        console.log(targetNumner);
+        function guessNumber(){
+            counter--;
+            //lost and play again
+            if(counter == 0){
+                document.getElementById("guessButton").disabled = true;
+                document.getElementById("restartButton").style.display = "block";
+            }
+            var inputNumber = document.getElementById("number").value;
+            pastGuesses += inputNumber + "<br/>";
+            document.getElementById("pastGuesses").innerHTML = pastGuesses;
+            //win and play again
+            if (inputNumber == targetNumner){
+                document.getElementById("mess").innerHTML = "Congratulations!! You guessed correctly. You have "+counter+" guesses left";
+                document.getElementById("mess").style.backgroundColor = "green";
+                document.getElementById("guessButton").disabled = true;
+                document.getElementById("restartButton").style.display = "block";
+            }
+            else if (inputNumber > targetNumner){
+                document.getElementById("mess").innerHTML = "Sorry your guess is too high. You have "+counter+" guesses left";
+                document.getElementById("mess").style.backgroundColor = "red";
+            }
+            else if (inputNumber < targetNumner){
+                document.getElementById("mess").innerHTML = "Sorry your guess is too low. You have "+counter+" guesses left";
+                document.getElementById("mess").style.backgroundColor = "red";
+            }
+        }
+        function restart(){
+            location.reload();
+        }
+    </script>
+</html>
